@@ -1,4 +1,4 @@
-const consulationService = require('../services/consultationService');
+const consultationService = require('../services/consultationService');
 const jwt = require('jsonwebtoken');
 
 
@@ -18,7 +18,7 @@ module.exports = {
             }
 
 
-            const consultation = await consulationService.create(user, id, req.body);
+            const consultation = await consultationService.create(user, id, req.body);
 
             return res.status(201).json({
                 consultation,
@@ -31,25 +31,19 @@ module.exports = {
         }
     },
 
-    async attachFile(req, res) {
-        try {
-
-            let result = await consulationService.attachFile(id, req.file)
-
-        } catch (err) {
-            console.log(err);
-            res.status(400).json({ error: err.message })
-        }
-    },
 
     async attachFile(req, res) {
 
         try {
 
             const id = req.params.id;
-            const file = req.body.file
-            let result = consulationService.attachFile(id, file)
+            const file = req.file
+            let result =await  consultationService.attachFile(id, file)
 
+            return res.status(200).json({
+                message:'file uploaded successfully',
+                result
+            });
 
         } catch (err) {
             console.log(err);

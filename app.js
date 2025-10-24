@@ -7,6 +7,10 @@ const session=require('express-session');
 const sessionConfig=require('./config/session');
 const flash=require("connect-flash");
 const cookieParser = require('cookie-parser');
+const multer = require('multer');
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended : true }));
@@ -16,7 +20,6 @@ app.use(flash());
 
 
 app.use(cookieParser());
-
 
 
 const authRoutes=require('./routes/authRoutes');

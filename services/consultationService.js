@@ -1,6 +1,7 @@
 const Consultation = require('../models/Consultation');
 const appointementService = require('../services/appointmentService');
 const vitalsService = require('../services/vitalsService');
+const s3Service = require('./s3Service');
 
 
 module.exports = {
@@ -8,12 +9,12 @@ module.exports = {
     async create(user, id, { patientId, note, diagnosis, procedures, bloodPressure, heartRate, temperature, weight, height, respiratoryRate, oxygenSaturation }) {
 
         try {
-            
-            
-            let hasConsultation= await this.consultationExists(id);        
-            
-            if(hasConsultation){
-              throw new Error('something went wrong, appointment already has a consultation');
+
+
+            let hasConsultation = await this.consultationExists(id);
+
+            if (hasConsultation) {
+                throw new Error('something went wrong, appointment already has a consultation');
             }
 
             let consultation = new Consultation();
@@ -37,27 +38,43 @@ module.exports = {
 
 
             let vitals = await vitalsService.create(consultation._id, vitalsData)
-            return {consultation,vitals};
+            return { consultation, vitals };
 
         } catch (err) {
             throw err
         }
     },
 
-     async consultationExists(id){
+    async consultationExists(id) {
 
         try {
 
-            let consultation =await Consultation.findOne({appointment:id});
-            if(consultation){
-               return true 
+            let consultation = await Consultation.findOne({ appointment: id });
+            if (consultation) {
+                return true
             }
             return false;
+
+        } catch (err) {
+            throw err
+        }
+    },
+
+
+    async attachFile(id, file) {
+
+        try {
+            let consultation = await Consultation.findById(id);
+            if (!consultation) throw new Error("something went wrong, consultation doesn't exist");
+            
+            let key=`careFlow-${Date.now()}-${file.originalname}`;
+            
+            result = await s3Service.upload(key,file)
+            consultation.files.push(key);
+            return await consultation.save();
             
         } catch (err) {
             throw err
         }
     }
-
-  
 }
