@@ -1,4 +1,4 @@
-const s3 =require('../config/S3')
+const s3 = require('../config/S3')
 module.exports = {
 
     async upload(key, file) {
@@ -12,9 +12,17 @@ module.exports = {
 
             return await s3.upload(params).promise();
         } catch (err) {
-            
+
             throw err
         }
+    },
+
+    async download(key) {
+        const params = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: key
+        };
+        return s3.getObject(params).createReadStream();
     }
 
 }
