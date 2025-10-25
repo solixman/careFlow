@@ -8,11 +8,7 @@ module.exports = {
 
     async create(req, res) {
         try {
-            const token = req.headers.authorization?.split(' ')[1];
-            if (!token) return res.status(401).json({ message: "No token provided" });
-            const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
-
+            const user = req.user
             let id = req.params.id;
             if (!id) {
                 throw new Error('something went wrong, theres no id');

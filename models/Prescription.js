@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose=require('mongoose');
 
 
 const status = ["draft", "signed", "sent", "dispensed"];
@@ -14,4 +14,4 @@ const PrescriptionSchema = new mongoose.Schema({
     } 
 }, { timestamps: true });
 
-export default mongoose.model("Prescription", PrescriptionSchema);
+module.exports= mongoose.model("Prescription", PrescriptionSchema);
