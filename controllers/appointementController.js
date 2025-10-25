@@ -9,9 +9,8 @@ module.exports = {
     async create(req, res) {
 
         try {
-            const token = req.headers.authorization?.split(' ')[1];
-            if (!token) return res.status(401).json({ message: "No token provided" });
-            const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+            const user = req.user
     
             let patientId;
             if (user.role === 'patient') {
@@ -39,9 +38,8 @@ module.exports = {
 
         try {
 
-            const token = req.headers.authorization?.split(' ')[1];
-            if (!token) return res.status(401).json({ message: "No token provided" });
-            const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+            const user = req.user
 
 
             let filters = {
@@ -73,9 +71,8 @@ module.exports = {
     async changeStatus(req, res) {
         try {
 
-            const token = req.headers.authorization?.split(' ')[1];
-            if (!token) return res.status(401).json({ message: "No token provided" });
-            const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+            const user = req.user
 
 
             const appointementId = req.params.id;
@@ -97,9 +94,8 @@ module.exports = {
     async update(req, res) {
         try {
 
-               const token = req.headers.authorization?.split(' ')[1];
-            if (!token) return res.status(401).json({ message: "No token provided" });
-            const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    
+            const user = req.user
 
             const appointementId= req.params.id;
             const data = { date, note, doctor, isUrgent } = req.body

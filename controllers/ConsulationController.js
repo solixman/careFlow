@@ -1,5 +1,6 @@
 const consultationService = require('../services/consultationService');
 const jwt = require('jsonwebtoken');
+const s3Service = require('../services/s3Service');
 
 
 module.exports = {
@@ -7,11 +8,7 @@ module.exports = {
 
     async create(req, res) {
         try {
-            const token = req.headers.authorization?.split(' ')[1];
-            if (!token) return res.status(401).json({ message: "No token provided" });
-            const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
-
+            const user = req.user
             let id = req.params.id;
             if (!id) {
                 throw new Error('something went wrong, theres no id');
@@ -38,10 +35,10 @@ module.exports = {
 
             const id = req.params.id;
             const file = req.file
-            let result =await  consultationService.attachFile(id, file)
+            let result = await consultationService.attachFile(id, file)
 
             return res.status(200).json({
-                message:'file uploaded successfully',
+                message: 'file uploaded successfully',
                 result
             });
 
@@ -49,6 +46,21 @@ module.exports = {
             console.log(err);
             res.status(400).json({ error: err.message })
         }
+    },
 
+    async downloadFile(req, res) {
+        try {
+            const key = req.params.key;
+
+            if (!key) {
+                throw new Error("something went wrong, the file name didn't arrive to server")
+            };
+            const fileStream = await s3Service.download(key);
+            res.attachment(key);
+            fileStream.pipe(res);
+
+        } catch (err) {
+
+        }
     }
 }

@@ -1,19 +1,19 @@
 const express=require('express');
 const router= express.Router();
 const userController = require('../controllers/userController');
-const authMiddleware = require('../middlewares/authMiddleware');
+const auth = require('../middlewares/authMiddleware');
 
 
-router.post('/create',userController.create); 
+router.post('/create',auth,userController.create); 
 
-router.post('/status/:id', userController.changeStatus);
-router.get('/all',userController.getAll)
+router.post('/status/:id',auth, userController.changeStatus);
+router.get('/all',auth,userController.getAll)
 
-router.get('/profile/:id',userController.getOne)
-router.get('/profile',userController.getOne)
+router.get('/profile/:id',auth,userController.getOne)
+router.get('/profile',auth,userController.getOne)
 
-router.patch('/update',userController.update)
-router.patch('/update/:id',userController.update)
+router.patch('/update',auth,userController.update)
+router.patch('/update/:id',auth,userController.update)
 
 
 module.exports=router;
