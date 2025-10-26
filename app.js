@@ -26,11 +26,13 @@ const authRoutes=require('./routes/authRoutes');
 const userRoutes=require('./routes/userRoutes');
 const appointmentRoutes=require('./routes/appointmentRoutes');
 const consultationRoutes=require('./routes/consultationRoutes');
+const prescriptionRoutes=require('./routes/prescriptoinRoutes');
 
 app.use('/auth',authRoutes);
 app.use('/user',userRoutes);
 app.use('/appoitment',appointmentRoutes);
 app.use('/consultation',consultationRoutes);
+app.use('/prescriptions',prescriptionRoutes);
 
 
 

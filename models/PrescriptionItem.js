@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose')
 
 const PrescriptionItemSchema = new mongoose.Schema({
     prescription: {
-        type: mongoose.Schema.Types.ObjectId,
+        type:  mongoose.Schema.Types.ObjectId,
         ref: "Prescription",
         required: true
     },
@@ -14,4 +14,4 @@ const PrescriptionItemSchema = new mongoose.Schema({
     note: { type: String }
 }, { timestamps: true });
 
-export default mongoose.model("PrescriptionItem", PrescriptionItemSchema);
+module.exports = mongoose.model("PrescriptionItem", PrescriptionItemSchema);

@@ -3,7 +3,7 @@ const router= express.Router();
 const consultationController= require('../controllers/ConsulationController');
 const upload = require('../middlewares/upload');
 const auth = require('../middlewares/authMiddleware');
-const isDoctor=resuire('../middlewares/isDoctor.js')
+const isDoctor=require('../middlewares/isDoctor.js')
 const isNotPatient = require('../middlewares/isNotPatient');
 
 

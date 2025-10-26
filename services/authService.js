@@ -1,7 +1,7 @@
 const jwtService = require('./jwtService');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
-const PatientService = require('../services/PatientService');
+const PatientService = require('./patientService');
 const userService = require('../services/userService');
 module.exports = {
 
