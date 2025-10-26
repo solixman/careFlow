@@ -16,7 +16,24 @@ module.exports = {
             console.error(err);
             res.status(400).json({ error: err.message });
         }
+    },
 
-    }
+    // async getAll(req, res) {
+    //     try {
+    //         let user = req.user;
+            
+    //         let prescriptions= await prescriptionservice.getAll(user);
 
+    //         return res.status(200).json({
+    //             prescriptions,
+    //             message:'all prescriptoins fetched'
+    //         })
+
+    //     } catch (err) {
+    //         console.error(err);
+    //         res.status(400).json({ error: err.message });
+
+    //     }
+    // }
+    
 }

@@ -1,6 +1,6 @@
 const Prescription = require('../models/Prescription.js');
-const prescriptionItemService=require('../services/prescriptionItemService');
-const Pharmacy=require('../models/Pharmacy');
+const prescriptionItemService = require('../services/prescriptionItemService');
+const Pharmacy = require('../models/Pharmacy');
 const Consultation = require('../models/Consultation.js');
 
 module.exports = {
@@ -9,11 +9,11 @@ module.exports = {
     async create(id, { pharmacyId, prescriptionItems }) {
 
         try {
-             console.log(id);
+            console.log(id);
             if (!await Pharmacy.exists({ _id: pharmacyId })) {
                 throw new Error('Invalid pharmacy ID');
             }
-            if (!await Consultation.exists({ _id:id })) {
+            if (!await Consultation.exists({ _id: id })) {
                 throw new Error('Invalid consultation ID');
             }
             let prescription = new Prescription()
@@ -21,7 +21,7 @@ module.exports = {
             prescription.status = "draft";
             prescription.pharmacy = pharmacyId
             prescription = await prescription.save();
-            
+
             let savedPrescriptionItems = await prescriptionItemService.savePrescriptionItems(prescription._id, prescriptionItems)
             console.log(savedPrescriptionItems);
             return { prescription, savedPrescriptionItems };
@@ -29,6 +29,5 @@ module.exports = {
         } catch (err) {
             throw err
         }
-
     }
 }
