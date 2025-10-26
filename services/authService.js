@@ -8,9 +8,6 @@ module.exports = {
     async login({ email, password }) {
         try {
 
-        if (!email || !password) {
-            throw new Error("password and email riquired");
-        }
 
             const user = await User.findOne({ email: email });
             if (!user) {
