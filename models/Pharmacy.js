@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const  mongoose=require('mongoose');
 
 const PharmacySchema = new mongoose.Schema({
     name: { type: String,
@@ -10,4 +10,4 @@ const PharmacySchema = new mongoose.Schema({
     status: { type: String, enum: ["active", "inactive"] } 
 }, { timestamps: true });
 
-export default mongoose.model("Pharmacy", PharmacySchema);
+module.exports= mongoose.model('Pharmacy',PharmacySchema);

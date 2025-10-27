@@ -1,6 +1,6 @@
 const {Schema,model}=require('mongoose');
 
-const ROLES = ['patient','admin', 'doctor', 'nurse'];
+const ROLES = ['patient','admin', 'doctor', 'nurse','pharmasist','labTester'];
 const GENDERS = ['male', 'female'];
 const STATUS =  ['active', 'suspended', 'inactive'];
 const userSchema= new Schema({

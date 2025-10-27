@@ -1,7 +1,7 @@
 const { findById } = require('../models/Appointment');
 const Patient = require('../models/Patient');
 const User = require('../models/User');
-const PatientService = require('../services/PatientService');
+const PatientService = require('./patientService');
 const bcrypt = require('bcrypt');
 
 module.exports = {
